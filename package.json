@@ -23,6 +23,8 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
-        "daisyui": "^2.31.0"
+        "@headlessui/vue": "^1.7.3",
+        "daisyui": "^2.31.0",
+        "vue-plyr": "^7.0.0"
     }
 }

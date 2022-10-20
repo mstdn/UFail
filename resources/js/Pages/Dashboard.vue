@@ -1,22 +1,29 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Components/Welcome.vue';
 </script>
 
 <template>
     <AppLayout title="Dashboard">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
-            </h2>
-        </template>
+        <!-- <template #header>
+            Dashboard
+        </template> -->
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <Welcome />
+        <section class="mt-6 pl-4">
+            <div class="card w-full bg-base-200">
+                <figure><img src="https://placeimg.com/400/225/arch" class="object-cover w-full" alt="Shoes" /></figure>
+                <div class="card-body">
+                    <h2 class="card-title">
+                        Shoes!
+                        <div class="badge badge-secondary">NEW</div>
+                    </h2>
+                    <p>If a dog chews shoes whose shoes does he choose?</p>
+                    <div class="card-actions justify-end">
+                        <div class="badge badge-outline">Fashion</div>
+                        <div class="badge badge-outline">Products</div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
     </AppLayout>
 </template>
