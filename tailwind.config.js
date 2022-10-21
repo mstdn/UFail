@@ -22,7 +22,7 @@ module.exports = {
         logs: true,
         rtl: false,
         prefix: "",
-        darkTheme: "dark",
+        darkTheme: "black",
     },
     darkMode: "class", // or 'media' or 'class'
     theme: {

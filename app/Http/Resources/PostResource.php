@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\ReplyResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,11 +25,12 @@ class PostResource extends JsonResource
             'username'      =>  $this->user->username,
             'name'          =>  $this->user->name,
             'user'          =>  UserResource::make($this->whenLoaded('user')),
-            'voters'        =>  $this->voters_count,
-            'upvoters'      =>  $this->upvoters_count,
-            'downvoters'    =>  $this->downvoters_count,
+            'replycount'    =>  $this->replies->count(),
+            'upvotes'       =>  $this->totalUpvotes(),
+            'downvotes'     =>  $this->totalDownvotes(),
+            'replies'       =>  ReplyResource::collection($this->whenLoaded('replies')),
             'has'           => [
-                // 'delete'        =>  Auth::user() ? Auth::user()->can('delete-post', $this->resource) : null,
+                'delete'        =>  Auth::user() ? Auth::user()->can('delete-post', $this->resource) : null,
                 'voted'         =>  Auth::user() ? Auth::user()->attachVoteStatus($this->resource) : null
             ]
         ];

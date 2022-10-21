@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Resources\ReplyResource;
 use App\Jobs\ConvertVideoForDownloading;
 use Illuminate\Support\Facades\Redirect;
 
@@ -18,10 +21,23 @@ class PostController extends Controller
     {
         return Inertia::render('Feed/Index', [
             'posts'     =>  PostResource::collection(
-                Post::with('user', 'category')
+                Post::with('user', 'category', 'replies')
                     ->withCount(['voters', 'upvoters', 'downvoters'])
                     ->latest()
                     ->paginate(1)
+            ),
+            'filters'   => $request->only(['search'])
+        ]);
+    }
+
+    public function trending(Request $request)
+    {
+        return Inertia::render('Feed/Index', [
+            'posts'     =>  PostResource::collection(
+                Post::with('user', 'category', 'replies')
+                    ->withCount(['voters', 'upvoters', 'downvoters'])
+                    ->orderBy('upvoters_count', 'desc')
+                    ->paginate()
             ),
             'filters'   => $request->only(['search'])
         ]);
@@ -100,21 +116,33 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        //
-    }
-
-    public function edit(Post $post)
-    {
-        //
-    }
-
-    public function update(UpdatePostRequest $request, Post $post)
-    {
-        //
+        return Inertia::render('Posts/Show', [
+            'post'      =>  PostResource::make($post),
+            'replies'   =>  $post->replies
+        ]);
     }
 
     public function destroy(Post $post)
     {
-        //
+        if (!Gate::allows('delete-post', $post)) {
+            abort(403);
+        }
+
+        File::delete($post->path);
+        File::delete('/uploads' . $post->user->id . '/videos/' . $post->id);
+
+        /* $firstPath = $post->path;
+        if(File::exists($firstPath)) {
+            File::delete($firstPath);
+        } */
+        $secondPath = public_path('../storage/uploads' . $post->user->id . '/videos/' . $post->id);
+        if(File::exists($secondPath)) {
+            File::delete($secondPath);
+        }
+        // Storage::disk('public')->delete($path);
+        // Storage::disk('public')->delete('/uploads' . $post->user->id . '/videos/' . $post->id);
+
+        $post->delete();
+        return redirect('/')->with('message', 'Post deleted successfully.');
     }
 }

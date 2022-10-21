@@ -60,7 +60,15 @@ class HandleInertiaRequests extends Middleware
                     'name'  =>  $category->name,
                     'slug'  =>  $category->slug
                 ]),
-            
+
+            'filters' => $request->only(['search']),
+
+            'unreadNotificationsCount' => $request->user() ? $request->user()->unreadNotifications()->count() : null,
+
+            'can'   =>  [
+                'admin' => $request->user() ? $request->user()->id === 1 : null
+            ],
+
         ]);
     }
 }

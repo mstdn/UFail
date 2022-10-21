@@ -15,7 +15,6 @@ class UserResource extends JsonResource
             'username'      =>  $this->username,
             'about'         =>  $this->about,
             'time'          =>  $this->created_at->diffForHumans(),
-            'picture'       =>  '/storage/' . $this->profile_photo_path,
             'avatar'        =>  $this->resource->getProfilePhotoUrlAttribute(),
             'followers'     =>  $this->followers()->count(),
             'followings'    =>  $this->followings()->count(),

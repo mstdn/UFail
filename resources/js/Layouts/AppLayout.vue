@@ -5,24 +5,14 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import Banner from '@/Components/Banner.vue';
 import SideLink from '../Pages/Shared/SideLink.vue';
 import Compose from '../Pages/Shared/Compose.vue';
+import MobileNav from "../Pages/Shared/MobileNav.vue";
+import FlashMessage from "../Pages/Shared/FlashMessage.vue";
+import Search from "../Pages/Shared/Search.vue";
 
 defineProps({
     title: String,
 });
 
-const showingNavigationDropdown = ref(false);
-
-const switchToTeam = (team) => {
-    Inertia.put(route('current-team.update'), {
-        team_id: team.id,
-    }, {
-        preserveState: false,
-    });
-};
-
-const logout = () => {
-    Inertia.post(route('logout'));
-};
 </script>
 
 <template>
@@ -47,36 +37,45 @@ const logout = () => {
                         </label>
                     </div>
                     <div class="flex-1 px-2 mx-2">
-                        <Link href="/" class="btn btn-ghost">{{ $page.props.appName }}</Link>
+                        <Link :href="route('index')" class="btn btn-ghost">
+                        {{ $page.props.appName }}
+                        </Link>
                     </div>
                     <div class="flex-none hidden lg:block">
                         <ul class="menu menu-horizontal">
                             <!-- Navbar menu content here -->
                             <li>
                                 <Link :href="route('index')">
-                                Home
+                                Recent
                                 </Link>
                             </li>
                             <li>
-                                <Link :href="route('categories')">
-                                Explore
+                                <Link :href="route('trending')">
+                                Trending
                                 </Link>
                             </li>
                         </ul>
                     </div>
                     <div class="flex-none gap-2 pl-2">
-                        <Compose v-if="$page.props.auth.user !== null" />
+                        <Search :filters="$page.props.filters" />
+                        <Compose v-if="$page.props.auth.user !== null && $page.props.can.admin" />
                         <div v-if="$page.props.auth.user !== null" class="dropdown dropdown-end">
                             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-                                <div class="w-10 rounded-full">
+                                <div class="w-10 rounded">
                                     <img :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
                                 </div>
                             </label>
                             <ul tabindex="0"
                                 class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                 <li>
+                                    <InertiaLink :href="route('user-profile', { id: $page.props.user.username })"
+                                        :class="{ 'btn-active text-white btn-primary': $page.url === '`/@${$page.props.user.username}`' }">
+                                        Profile
+                                    </InertiaLink>
+                                </li>
+                                <li>
                                     <Link :href="route('profile.show')" class="justify-between">
-                                    Profile
+                                    Settings
                                     <span class="badge">New</span>
                                     </Link>
                                 </li>
@@ -104,17 +103,18 @@ const logout = () => {
                                 class="flex flex-col h-screen xl:pr-3 fixed w-68 xs:w-88 xl:w-275 border-base-300 border-r">
                                 <!-- Nav logged in -->
                                 <nav v-if="$page.props.auth.user !== null" class="mt-8">
-                                    <SideLink :href="route('index')" :active="$page.component === 'Feed/Index'">
-                                        <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M22.58 7.35L12.475 1.897c-.297-.16-.654-.16-.95 0L1.425 7.35c-.486.264-.667.87-.405 1.356.18.335.525.525.88.525.16 0 .324-.038.475-.12l.734-.396 1.59 11.25c.216 1.214 1.31 2.062 2.66 2.062h9.282c1.35 0 2.444-.848 2.662-2.088l1.588-11.225.737.398c.485.263 1.092.082 1.354-.404.263-.486.08-1.093-.404-1.355zM12 15.435c-1.795 0-3.25-1.455-3.25-3.25s1.455-3.25 3.25-3.25 3.25 1.455 3.25 3.25-1.455 3.25-3.25 3.25z">
-                                            </path>
+                                    <SideLink :href="route('index')" :active="$page.url === '/'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
                                         </svg>
                                         <span class="hidden xl:block ml-4 font-bold text-md">
-                                            Browse
+                                            Recent
                                         </span>
                                     </SideLink>
-                                    <SideLink :href="route('categories')" :active="$page.component === 'Welcome'">
+                                    <SideLink :href="route('trending')" :active="$page.url === '/trending'">
                                         <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M21 7.337h-3.93l.372-4.272c.036-.412-.27-.775-.682-.812-.417-.03-.776.27-.812.683l-.383 4.4h-6.32l.37-4.27c.037-.413-.27-.776-.68-.813-.42-.03-.777.27-.813.683l-.382 4.4H3.782c-.414 0-.75.337-.75.75s.336.75.75.75H7.61l-.55 6.327H3c-.414 0-.75.336-.75.75s.336.75.75.75h3.93l-.372 4.272c-.036.412.27.775.682.812l.066.003c.385 0 .712-.295.746-.686l.383-4.4h6.32l-.37 4.27c-.036.413.27.776.682.813l.066.003c.385 0 .712-.295.746-.686l.382-4.4h3.957c.413 0 .75-.337.75-.75s-.337-.75-.75-.75H16.39l.55-6.327H21c.414 0 .75-.336.75-.75s-.336-.75-.75-.75zm-6.115 7.826h-6.32l.55-6.326h6.32l-.55 6.326z">
@@ -124,7 +124,7 @@ const logout = () => {
                                             Explore
                                         </span>
                                     </SideLink>
-                                    <SideLink href="/community" :active="$page.component === 'Welcome'">
+                                    <SideLink href="/community" :active="$page.url === '/community'">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -144,11 +144,13 @@ const logout = () => {
                                             </path>
                                         </svg>
                                         <span class="hidden xl:block ml-4 font-bold text-md">
-                                            Notifications
+                                            Notifications <span class="badge indicator-item">
+                                                {{ $page.props.unreadNotificationsCount }}
+                                            </span>
                                         </span>
                                     </SideLink>
-                                    <!-- <SideLink :href="route('user-profile', {id: $page.props.user.username})"
-                                        :active="$page.url === 'Users/Show'">
+                                    <SideLink :href="route('user-profile', {id: $page.props.user.username})"
+                                        :active="$page.component === 'Users/Show'">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -159,7 +161,7 @@ const logout = () => {
                                         <span class="hidden xl:block ml-4 font-bold text-md">
                                             Profile
                                         </span>
-                                    </SideLink> -->
+                                    </SideLink>
                                     <SideLink href="/user/profile" :active="$page.url === '/user/profile'">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -252,7 +254,7 @@ const logout = () => {
                         </div>
 
                         <!-- Middle -->
-                        <div class="w-full sm:w-600 h-screen">
+                        <div class="w-full sm:w-600">
                             <header v-if="$slots.header">
                                 <h3 class="text-2xl font-extrabold mt-6 ml-4">
                                     <span
@@ -261,7 +263,7 @@ const logout = () => {
                                     </span>
                                 </h3>
                             </header>
-                            <!-- <FlashMessage /> -->
+                            <FlashMessage />
                             <slot />
                         </div>
                         <!-- Right -->
@@ -376,10 +378,13 @@ const logout = () => {
                 <ul class="menu p-4 overflow-y-auto w-80 bg-base-100">
                     <!-- Sidebar content here -->
                     <li>
-                        <Link :href="route('index')">Home</Link>
+                        <Link :href="route('index')">Recent</Link>
                     </li>
                     <li>
-                        <Link :href="route('categories')">Explore</Link>
+                        <Link :href="route('trending')">Trending</Link>
+                    </li>
+                    <li>
+                        <Link :href="route('community')">Community</Link>
                     </li>
                     <div class="divider"></div>
                     <li v-for="category in $page.props.categories" :key="category.id">
@@ -390,6 +395,6 @@ const logout = () => {
                 </ul>
             </div>
         </div>
-
+        <!-- <MobileNav class="pt-10 z-10" v-if="$page.props.auth.user !== null" /> -->
     </div>
 </template>
