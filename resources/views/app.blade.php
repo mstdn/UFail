@@ -11,6 +11,7 @@
         <meta property="og:type" content="article">
         <meta property="og:url" content="{{request()->url()}}">
 
+        @laravelPWA
         @routes
         @vite('resources/js/app.js')
         @inertiaHead
