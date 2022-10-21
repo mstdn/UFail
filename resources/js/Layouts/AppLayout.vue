@@ -244,8 +244,7 @@ defineProps({
                                 <ul class="menu w-full mb-4">
                                     <div class="divider"></div>
                                     <li v-for="category in $page.props.categories" :key="category.id">
-                                        <Link :href="route('category', { id: category.slug })"
-                                            :class="$page.route === 'category', { id: category.slug } ? 'btn-active' : ''">
+                                        <Link :href="route('category', { id: category.slug })">
                                         <i :class="category.icon"></i> <span class="hidden xl:block pl-2">{{
                                         category.name }}</span>
                                         </Link>
