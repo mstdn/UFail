@@ -17,7 +17,7 @@ let props = defineProps({
 
         <div class="py-10 pl-4">
             <div class="mx-auto text-center">
-                <ProfileCard :profile="profile.data" />
+                <ProfileCard :profile="profile" />
             </div>
         </div>
 
@@ -26,23 +26,23 @@ let props = defineProps({
                 <TabList class="text-center flex space-x-1 p-2 mx-4 rounded-lg border-gray-900 border-[1px]">
                     <Tab v-slot="{ selected }" as="template">
                         <button :class="[selected ? 'btn btn-primary btn-sm' : 'btn btn-primary btn-sm btn-active']">
-                            Posts
+                             Posts
                         </button>
                     </Tab>
                     <Tab v-slot="{ selected }" as="template">
                         <button :class="[selected ? 'btn btn-primary btn-sm' : 'btn btn-primary btn-sm btn-active']">
-                            Liked
+                             Liked
                         </button>
                     </Tab>
                     <Tab v-slot="{ selected }" as="template">
                         <button :class="[selected ? 'btn btn-primary btn-sm' : 'btn btn-primary btn-sm btn-active']">
-                            Shared
+                             Shared
                         </button>
                     </Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
-                        <Empty v-if="profile.data.posts === null" />
+                        <Empty v-if="profile.posts === null" />
 
                         <Card :posts="posts" />
 

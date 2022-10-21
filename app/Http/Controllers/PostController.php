@@ -24,7 +24,7 @@ class PostController extends Controller
                 Post::with('user', 'category', 'replies')
                     ->withCount(['voters', 'upvoters', 'downvoters'])
                     ->latest()
-                    ->paginate(1)
+                    ->paginate(6)
             ),
             'filters'   => $request->only(['search'])
         ]);
@@ -37,7 +37,7 @@ class PostController extends Controller
                 Post::with('user', 'category', 'replies')
                     ->withCount(['voters', 'upvoters', 'downvoters'])
                     ->orderBy('upvoters_count', 'desc')
-                    ->paginate()
+                    ->paginate(6)
             ),
             'filters'   => $request->only(['search'])
         ]);

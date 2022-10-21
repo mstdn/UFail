@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="notification.data.type === 'follow'"
-            class="card card-compact dark:bg-gray-800 dark:text-white bg-white text-gray-900">
+            class="card card-compact border-gray-900 border-[1px]">
             <div class="card-body">
                 <div class="flex justify-between">
                     <h2 class="card-title">
@@ -52,7 +52,7 @@
         </div>
 
         <div v-if="notification.data.type === 'like'"
-            class="card card-compact dark:bg-gray-800 dark:text-white bg-white text-gray-900">
+            class="card card-compact border-gray-900 border-[1px]">
             <div class="card-body">
                 <div class="flex justify-between">
                     <h2 class="card-title">
@@ -106,7 +106,7 @@
         </div>
 
         <div v-if="notification.data.type === 'reply'"
-            class="card card-compact dark:bg-gray-800 dark:text-white bg-white text-gray-900">
+            class="card card-compact border-gray-900 border-[1px]">
             <div class="card-body">
                 <div class="flex justify-between">
                     <h2 class="card-title">

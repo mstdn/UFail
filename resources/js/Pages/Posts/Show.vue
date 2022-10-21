@@ -13,27 +13,27 @@ defineProps({
 
         <article class="my-6 pl-4">
             <div class="card compact w-full bg-base-200">
-                <figure v-if="post.data.file !== null"><img :src="post.data.file" class="object-cover w-full" alt="" />
+                <figure v-if="post.file !== null"><img :src="post.file" class="object-cover w-full" alt="" />
                 </figure>
-                <div v-if="post.data.video !== null">
+                <div v-if="post.video !== null">
                     <vue-plyr :options="options">
                         <video controls crossorigin playsinline>
-                            <source size="720" :src="post.data.video" type="video/mp4" />
+                            <source size="720" :src="post.video" type="video/mp4" />
                         </video>
                     </vue-plyr>
                 </div>
                 <div class="flex justify-between">
                     <div class="flex mt-4 ml-4">
-                        Posted in <div class="badge badge-outline ml-1 mt-1">{{ post.data.category }}</div>
+                        Posted in <div class="badge badge-outline ml-1 mt-1">{{ post.category }}</div>
                     </div>
                     <div class="flex mt-4 mr-4">
-                        <div class="badge badge-outline">{{ post.data.time }}</div>
+                        <div class="badge badge-outline">{{ post.time }}</div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p>{{ post.data.description }}</p>
+                    <p>{{ post.description }}</p>
                     <div class="card-actions justify-between mt-2">
-                        <Vote :post="post.data" />
+                        <Vote :post="post" />
                         <div>
                             <!-- <button v-if="post.has.delete" @click="destroy(post.id)" method="post" type="submit"
                                 class="btn btn-sm btn-primary">
@@ -69,7 +69,7 @@ defineProps({
         </section>
 
         <section>
-            <div v-if="post.data.replies !== null" class="px-4 mx-auto max-w-screen-xl py-16 lg:px-6">
+            <div v-if="post.replies !== null" class="px-4 mx-auto max-w-screen-xl py-16 lg:px-6">
                 <ReplyCard :post="post" />
             </div>
         </section>

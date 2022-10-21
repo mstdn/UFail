@@ -28,12 +28,12 @@ function destroy(id) {
 
         <div class="py-12 pl-4">
 
-                    <Empty v-if="notifications.total === 0" class="w-full mt-20" />
+            <Empty v-if="notifications.total === 0" class="w-full mt-20" />
 
-                    <div class="w-full">
-                        <NotificationsCard class="mb-4" v-for="notification in notifications.data"
-                            :key="notification.id" :notification="notification" />
-                    </div>
+            <div class="w-full">
+                <NotificationsCard class="mb-4" v-for="notification in notifications.data" :key="notification.id"
+                    :notification="notification" />
+            </div>
 
             <SimplePagination v-if="notifications.next_page_url !== null" :data="notifications.data" />
         </div>

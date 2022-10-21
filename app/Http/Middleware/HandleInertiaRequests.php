@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\CategoryResource;
 use Inertia\Middleware;
 use App\Models\Category;
 use Tightenco\Ziggy\Ziggy;
@@ -53,13 +54,8 @@ class HandleInertiaRequests extends Middleware
                 'message' => fn () => $request->session()->get('message')
             ],
 
-            'categories' => fn () => Category::latest()
-                ->get()
-                ->map(fn ($category) => [
-                    'id'    =>  $category->id,
-                    'name'  =>  $category->name,
-                    'slug'  =>  $category->slug
-                ]),
+            'categories' => fn () => CategoryResource::collection(Category::latest()
+                ->get()),
 
             'filters' => $request->only(['search']),
 

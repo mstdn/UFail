@@ -41,7 +41,7 @@ let form = useForm({
 });
 
 let submit = () => {
-    form.post(route('reply', { id: props.post.data.id }), {
+    form.post(route('reply', { id: props.post.id }), {
         forceFormData: true,
         preserveScroll: true,
         onSuccess: () => form.reset("reply"),

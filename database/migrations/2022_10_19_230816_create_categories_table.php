@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->string('icon')->nullable();
             $table->string('max')->nullable();
             $table->text('caption')->nullable();
             $table->timestamps();
@@ -25,50 +26,61 @@ return new class extends Migration
 
         $data =  array(
             [
-                'name' => 'General',
-                'slug' =>  'general',
+                'name' =>  'Funny',
+                'slug' =>  'funny',
+                'icon' =>  'fa-solid fa-face-laugh',
             ],
             [
-                'name' => 'Animals',
-                'slug' =>  'animals',
+                'name' => 'Latest News',
+                'slug' =>  'latest-news',
+                'icon' =>  'fa-solid fa-newspaper',
             ],
             [
-                'name' => 'LOL',
-                'slug'  =>  'lol',
+                'name'  => 'WTF',
+                'slug'  =>  'wtf',
+                'icon'  =>  'fa-solid fa-skull-crossbones',
             ],
             [
-                'name' => 'Videos',
+                'name'  => 'Videos',
                 'slug'  =>  'videos',
+                'icon'  =>  'fa-solid fa-video',
             ],
             [
-                'name' => 'Wholesome',
+                'name'  => 'Wholesome',
                 'slug'  =>  'wholesome',
+                'icon'  => 'fa-solid fa-face-grin-hearts',
             ],
             [
                 'name' => 'Memes',
                 'slug'  =>  'memes',
+                'icon'  =>  'fa-solid fa-hat-wizard',
             ],
             [
                 'name' => 'GIFs',
                 'slug'  =>  'gifs',
+                'icon'  =>  'fa-solid fa-bolt',
             ],
             [
-                'name' => 'News',
-                'slug'  =>  'news',
+                'name'  => 'Random',
+                'slug'  =>  'random',
+                'icon'  =>  'fa-solid fa-bomb',
             ],
             [
-                'name' => 'Anime',
+                'name'  => 'Animals',
                 'slug'  =>  'anime',
+                'icon'  =>  'fa-solid fa-cat',
             ],
             [
-                'name' => 'Comics',
+                'name'  => 'Comics',
                 'slug'  =>  'comics',
+                'icon'  =>  'fa-solid fa-book',
             ],
         );
         foreach ($data as $datum) {
             $category = new Category(); //The Category is the model for your migration
             $category->name = $datum['name'];
             $category->slug = $datum['slug'];
+            $category->icon = $datum['icon'];
             $category->save();
         };
     }

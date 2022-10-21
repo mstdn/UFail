@@ -24,7 +24,7 @@ defineProps({
 
         <div class="drawer">
             <input id="drawer" type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content flex flex-col">
+            <div class="drawer-content flex flex-col no-scrollbar">
                 <!-- Navbar -->
                 <div class="sticky top-0 z-50 w-full navbar bg-black border-gray-900 border-b-[1px]">
                     <div class="flex-none lg:hidden">
@@ -95,12 +95,12 @@ defineProps({
 
                 </div>
                 <!-- Page content here -->
-                <div class="container mx-auto">
+                <div class="container mx-auto no-scrollbar">
                     <div class="flex flex-row justify-center">
                         <!-- Left -->
                         <div class="w-68 xs:w-88 xl:w-275 h-full">
                             <div
-                                class="flex flex-col h-screen xl:pr-3 fixed w-68 xs:w-88 xl:w-275 border-base-300 border-r">
+                                class="flex flex-col overflow-scroll no-scrollbar h-full xl:pr-3 fixed w-68 xs:w-88 xl:w-275 border-base-300 border-r">
                                 <!-- Nav logged in -->
                                 <nav v-if="$page.props.auth.user !== null" class="mt-8">
                                     <SideLink :href="route('index')" :active="$page.url === '/'">
@@ -241,24 +241,25 @@ defineProps({
                                 </nav>
                                 <!-- /Nav -->
 
-                                <ul class="menu w-full hidden lg:block">
+                                <ul class="menu w-full mb-4">
                                     <div class="divider"></div>
                                     <li v-for="category in $page.props.categories" :key="category.id">
-                                        <Link :href="route('category', { id: category.slug })">
-                                        {{ category.name }}
+                                        <Link :href="route('category', { id: category.slug })"
+                                            :class="$page.route === 'category', { id: category.slug } ? 'btn-active' : ''">
+                                        <i :class="category.icon"></i> <span class="hidden xl:block pl-2">{{
+                                        category.name }}</span>
                                         </Link>
                                     </li>
                                 </ul>
 
                             </div>
                         </div>
-
                         <!-- Middle -->
                         <div class="w-full sm:w-600">
                             <header v-if="$slots.header">
                                 <h3 class="text-2xl font-extrabold mt-6 ml-4">
                                     <span
-                                        class="text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-red-800">
+                                        class="text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-blue-800">
                                         <slot name="header" />
                                     </span>
                                 </h3>
@@ -388,8 +389,8 @@ defineProps({
                     </li>
                     <div class="divider"></div>
                     <li v-for="category in $page.props.categories" :key="category.id">
-                        <Link :href="route('category', { id: category.slug })">
-                        {{ category.name }}
+                        <Link class="gap-2" :href="route('category', { id: category.slug })">
+                        <i :class="category.icon"></i> {{ category.name }}
                         </Link>
                     </li>
                 </ul>

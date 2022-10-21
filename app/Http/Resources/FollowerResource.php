@@ -16,9 +16,10 @@ class FollowerResource extends JsonResource
             'about'              =>  $this->about,
             'time'               =>  $this->created_at->diffForHumans(),
             'avatar'             =>  $this->getProfilePhotoUrlAttribute(),
-            'followerscount'     =>  $this->followers()->count(),
-            'followcount'        =>  $this->followings()->count(),
-            'postamount'         =>  $this->posts->count(),
+            'followers'          =>  $this->followers()->count(),
+            'followings'         =>  $this->followings()->count(),
+            'postcount'          =>  $this->replies->count(),
+            'votecount'          =>  $this->votes()->count(),
             'is'            => [
                 'following'     =>  Auth::user() ? Auth::user()->isFollowing($this->resource) : null,
                 'self'          =>  Auth::user() ? Auth::user()->is($this->resource) : null

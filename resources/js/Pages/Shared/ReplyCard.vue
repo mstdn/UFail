@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="reply in post.data.replies" :key="reply.id" class="mb-8 border-gray-900 border-[1px]">
+        <div v-for="reply in post.replies" :key="reply.id" class="mb-8 border-gray-900 border-[1px]">
             <div class="card card-compact">
                 <div class="card-body">
                     <h3 class="card-title">

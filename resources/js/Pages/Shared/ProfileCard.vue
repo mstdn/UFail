@@ -77,7 +77,11 @@
                 <div class="card-actions flex ml-2">
                     <InertiaLink preserve-scroll class="btn-link font-bold"
                         :href="route('user-profile', { id: profile.username })">
-                        {{ profile.postcount }} <span class="font-normal">Posts</span>
+                        {{ profile.postcount }} <span class="font-normal">Comments</span>
+                    </InertiaLink>
+                    <InertiaLink preserve-scroll class="btn-link font-bold"
+                        :href="route('user-profile', { id: profile.username })">
+                        {{ profile.votecount }} <span class="font-normal">Votes</span>
                     </InertiaLink>
                     <InertiaLink preserve-scroll class="btn-link font-bold"
                         :href="route('user-profile-follows', { id: profile.username })">

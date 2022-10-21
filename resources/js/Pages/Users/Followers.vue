@@ -16,7 +16,7 @@ let props = defineProps({
 
         <div class="py-10 pt-16 px-4 mx-auto max-w-screen-xl lg:px-6">
             <div class="mx-auto max-w-screen-sm text-center">
-                <ProfileCard :profile="profile.data" />
+                <ProfileCard :profile="profile" />
             </div>
         </div>
 
