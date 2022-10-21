@@ -23,8 +23,12 @@ class PostController extends Controller
             'posts'     =>  PostResource::collection(
                 Post::with('user', 'category', 'replies')
                     ->withCount(['voters', 'upvoters', 'downvoters'])
+                    ->when($request->input('search'), function ($query, $search) {
+                        $query->where('description', 'like', "%{$search}%");
+                    })
                     ->latest()
                     ->paginate(6)
+                    ->withQueryString()
             ),
             'filters'   => $request->only(['search'])
         ]);
