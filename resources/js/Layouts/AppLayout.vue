@@ -245,8 +245,8 @@ defineProps({
                                     <div class="divider"></div>
                                     <li v-for="category in $page.props.categories" :key="category.id">
                                         <Link :href="route('category', { id: category.slug })">
-                                        <i :class="category.icon"></i> <span class="hidden xl:block pl-2">{{
-                                        category.name }}</span>
+                                            <i class="md:pl-0 pl-3" :class="category.icon"></i> <span class="hidden xl:block pl-2">{{
+                                            category.name }}</span>
                                         </Link>
                                     </li>
                                 </ul>
@@ -386,7 +386,6 @@ defineProps({
                     <li>
                         <Link :href="route('community')">Community</Link>
                     </li>
-                    <div class="divider"></div>
                     <li v-for="category in $page.props.categories" :key="category.id">
                         <Link class="gap-2" :href="route('category', { id: category.slug })">
                         <i :class="category.icon"></i> {{ category.name }}
