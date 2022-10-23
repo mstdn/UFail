@@ -100,7 +100,7 @@ defineProps({
                         <!-- Left -->
                         <div class="w-68 xs:w-88 xl:w-275 h-full">
                             <div
-                                class="flex flex-col overflow-scroll no-scrollbar h-full xl:pr-3 fixed w-68 xs:w-88 xl:w-275 border-base-300 border-r">
+                                class="flex flex-col overflow-scroll no-scrollbar h-full xl:pr-3 fixed w-68 xs:w-88 xl:w-275 border-gray-900 border-r">
                                 <!-- Nav logged in -->
                                 <nav v-if="$page.props.auth.user !== null" class="mt-8">
                                     <SideLink :href="route('index')" :active="$page.url === '/'">
@@ -241,11 +241,11 @@ defineProps({
                                 </nav>
                                 <!-- /Nav -->
 
-                                <ul class="menu w-full mb-4">
+                                <ul class="menu w-full mb-6">
                                     <div class="divider"></div>
                                     <li v-for="category in $page.props.categories" :key="category.id">
                                         <Link :href="route('category', { id: category.slug })">
-                                            <i class="md:pl-0 pl-3" :class="category.icon"></i> <span class="hidden xl:block pl-2">{{
+                                            <i class="xl:pl-0 md:pl-4 pl-3" :class="category.icon"></i> <span class="hidden xl:block pl-2">{{
                                             category.name }}</span>
                                         </Link>
                                     </li>
@@ -375,7 +375,7 @@ defineProps({
             </div>
             <div class="drawer-side">
                 <label for="drawer" class="drawer-overlay"></label>
-                <ul class="menu p-4 overflow-y-auto w-80 bg-base-100">
+                <ul class="menu p-4 overflow-y-auto w-80 bg-black">
                     <!-- Sidebar content here -->
                     <li>
                         <Link :href="route('index')">Recent</Link>

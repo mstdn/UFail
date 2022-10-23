@@ -9,8 +9,8 @@
     
     const classes = computed(() => {
         return props.active
-            ? 'flex items-center justify-center xl:justify-start text-blue-500 mb-8 transition duration-350 ease-in-out'
-            : 'flex items-center justify-center xl:justify-start text-gray-100 dark:text-white hover:text-blue-500 dark:hover:text-blue-500 mb-8 transition duration-350 ease-in-out';
+            ? 'flex items-center justify-center xl:justify-start text-primary mb-8 transition duration-350 ease-in-out'
+            : 'flex items-center justify-center xl:justify-start text-gray-100 dark:text-white hover:text-primary dark:hover:text-primary mb-8 transition duration-350 ease-in-out';
     });
     </script>
     

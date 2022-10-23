@@ -1,7 +1,7 @@
 <template>
     <div>
         <article v-for="post in posts.data" :key="post.id" class="my-6 pl-4">
-            <div class="card compact w-full bg-base-200">
+            <div class="card compact w-full bg-base-300">
                 <figure v-if="post.file !== null"><img :src="post.file" class="object-cover w-full" alt="" />
                 </figure>
                 <div v-if="post.video !== null">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="flex justify-between">
                     <div class="flex mt-4 ml-4 text-sm">
-                        Posted in <div class="badge badge-outline ml-1">
+                        <span class="hidden lg:block">Posted in</span> <div class="badge badge-outline ml-1">
                             <InertiaLink :href="route('category', { id: post.category_slug })">
                                 {{ post.category }}
                             </InertiaLink>

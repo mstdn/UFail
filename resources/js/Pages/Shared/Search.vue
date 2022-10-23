@@ -2,7 +2,7 @@
     <div class="dropdown dropdown-left">
         <label tabindex="0" class="btn btn-ghost btn-circle">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="#a7081a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                stroke="#57b55f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
