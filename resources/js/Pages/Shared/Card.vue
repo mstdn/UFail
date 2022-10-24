@@ -11,9 +11,11 @@
                         </video>
                     </vue-plyr>
                 </div>
-                <div class="flex justify-between">
+
+                <!-- <div class="flex justify-between">
                     <div class="flex mt-4 ml-4 text-sm">
-                        <span class="hidden lg:block">Posted in</span> <div class="badge badge-outline ml-1">
+                        <span class="hidden lg:block">Posted in</span>
+                        <div class="badge badge-outline ml-1">
                             <InertiaLink :href="route('category', { id: post.category_slug })">
                                 {{ post.category }}
                             </InertiaLink>
@@ -26,8 +28,37 @@
                             </InertiaLink>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="card-body">
+                    <div class="flex justify-between">
+                        <h3 class="card-title">
+                            <InertiaLink :href="route('user-profile', { id: post.username })">
+                                <div class="avatar">
+                                    <div class="w-12 rounded">
+                                        <img :src="post.avatar" />
+                                    </div>
+                                </div>
+                            </InertiaLink>
+                            <div class="ml-2 text-sm -mt-2">
+                                <InertiaLink :href="route('user-profile', { id: post.username })">
+                                    {{ post.username }}
+                                </InertiaLink>
+                                <div>
+                                    <InertiaLink :href="route('post.show', { id: post.id })">
+                                        <div class="badge badge-sm badge-outline p-1">
+                                            {{ post.time }}
+                                        </div>
+                                    </InertiaLink>
+                                </div>
+                            </div>
+                        </h3>
+                        <div class="badge badge-primary badge-outline mt-5">
+                            <InertiaLink :href="route('category', { id: post.category_slug })">
+                                {{ post.category }}
+                            </InertiaLink>
+                        </div>
+                    </div>
+
                     <p>{{ post.description }}</p>
                     <div class="card-actions justify-between mt-2">
                         <Vote :post="post" />

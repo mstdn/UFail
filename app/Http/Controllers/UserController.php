@@ -37,13 +37,17 @@ class UserController extends Controller
     {
         return Inertia::render('Users/Show', [
             'profile'       =>  UserResource::make($user),
-            'posts'         => PostResource::collection(
+            'posts'         =>  PostResource::collection(
                 $user->posts()
                 ->withCount('replies')
                 ->latest()
                 ->paginate(10)
             ),
-            'replies'       =>  ReplyResource::collection($user->replies),
+            'replies'       =>  ReplyResource::collection(
+                $user->replies()
+                ->latest()
+                ->paginate(10)
+            ),
             'filters'       =>  $request->only(['search']),
         ]);
     }

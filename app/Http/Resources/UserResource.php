@@ -18,7 +18,8 @@ class UserResource extends JsonResource
             'avatar'        =>  $this->resource->getProfilePhotoUrlAttribute(),
             'followers'     =>  $this->followers()->count(),
             'followings'    =>  $this->followings()->count(),
-            'postcount'     =>  $this->replies->count(),
+            'postcount'     =>  $this->posts->count(),
+            'replycount'    =>  $this->replies->count(),
             'votecount'     =>  $this->votes()->count(),
             'is'            => [
                 'following'     =>  Auth::user() ? Auth::user()->isFollowing($this->resource) : null,

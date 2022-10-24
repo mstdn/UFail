@@ -24,9 +24,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::post('/p/{post}/reply', [ReplyController::class, 'store'])->name('reply');
     Route::delete('/r/{reply}/delete', [ReplyController::class, 'destroy'])->name('reply.destroy');
     Route::post('/{user:username}/follow', [UserController::class, 'follow'])->name('follow');
+    Route::post('upload', [PostController::class, 'store'])->name('post.store');
+    Route::delete('/{post}/delete', [PostController::class, 'destroy'])->name('post.destroy');
     Route::group(['middleware' => 'admin'], function () {
-       Route::post('upload', [PostController::class, 'store'])->name('post.store');
-       Route::delete('/{post}/delete', [PostController::class, 'destroy'])->name('post.destroy');
     });
 });
 

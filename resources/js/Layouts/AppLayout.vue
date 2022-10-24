@@ -58,7 +58,7 @@ defineProps({
                     </div>
                     <div class="flex-none gap-2 pl-2">
                         <Search :filters="$page.props.filters" />
-                        <Compose v-if="$page.props.auth.user !== null && $page.props.can.admin" />
+                        <Compose v-if="$page.props.auth.user !== null" />
                         <div v-if="$page.props.auth.user !== null" class="dropdown dropdown-end">
                             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                                 <div class="w-10 rounded">
