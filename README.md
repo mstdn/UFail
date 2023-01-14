@@ -1,5 +1,5 @@
-# Derpy
+# U Fail?
 
 A free open source 9GAG-ish thing made in Laravel 9, VueJS 3, Tailwind CSS and InertiaJS
 
-Demo: https://derpy.lol 
+Demo: https://u.fail 
